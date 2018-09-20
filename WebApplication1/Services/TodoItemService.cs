@@ -21,7 +21,7 @@ namespace WebApplication1.Services
     {
       newTodo.Id = Guid.NewGuid();
       newTodo.IsDone = false;
-      newTodo.DueAt = DateTimeOffset.Now.AddDays(3);
+      //newTodo.DueAt = DateTimeOffset.Now.AddDays(3);
 
       _context.Items.Add(newTodo);
 
