@@ -10,15 +10,15 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class TodoController : Controller
+  public class TodoController : Controller
+  {
+
+    private readonly ITodoItemService _todoItemService;
+
+    public TodoController(ITodoItemService todoItemService)
     {
-
-      private readonly ITodoItemService _todoItemService;
-
-      public TodoController(ITodoItemService todoItemService)
-      {
-        _todoItemService = todoItemService;
-      }
+      _todoItemService = todoItemService;
+    }
 
     public async Task<IActionResult> Index()
     {
@@ -30,6 +30,20 @@ namespace WebApplication1.Controllers
       };
 
       return View(model);
+    }
+
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddItem(TodoItem newTodo)
+    {
+      if (!ModelState.IsValid)
+        return RedirectToAction("Index");
+
+      var validRequest = await _todoItemService.AddItemAsync(newTodo);
+
+      if (!validRequest)
+        return BadRequest("Could not add item.");
+
+      return RedirectToAction("Index");
     }
   }
 }
