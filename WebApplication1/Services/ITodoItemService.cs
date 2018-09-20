@@ -7,7 +7,7 @@ namespace WebApplication1.Services
 {
   public interface ITodoItemService
   {
-    Task<TodoItem[]> GetIncompleteItemsAsync();
+    Task<TodoItem[]> GetIncompleteItemsAsync(ApplicationUser user);
     Task<bool> AddItemAsync(TodoItem newTodo);
   }
 }
